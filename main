@@ -1,0 +1,54 @@
+import tkinter
+'''
+# test to see if tkinter is working or not
+tkinter._test()
+'''
+from tkinter import Tk
+from tkinter import ttk
+from tkinter import *
+#list accessed by all functions
+imped=[]
+def choose():
+    if(choice.get() == 1):
+        series()
+    else:
+        parallel()
+def series():
+    ans=0
+    i=0
+    z=entry.get()
+    imped=z.split(',')
+    for row in imped:
+        ans+=float(imped[i])
+        i+=1
+    result.delete(0,"end")
+    result.insert(0,ans)
+def parallel():
+    ans=0
+    i=0
+    z=entry.get()
+    imped=z.split(',')
+    for row in imped:
+        ans+=(1.0/float(imped[i]))
+        i+=1
+    result.delete(0,"end")
+    result.insert(0,1.0/ans)
+def calc():
+    choose()
+#creating GUI
+root=Tk()
+root.title("SeriesParallelImpedance")
+root.geometry("500x225")
+choice = IntVar() #hold user's choice for series or parallel conversion
+
+#creating choices
+Radiobutton(root,text="Series", variable = choice, value=1).grid(row=0, column=1, sticky=W)
+Radiobutton(root,text="Parallel", variable = choice, value=2).grid(row=0, column=2, sticky=W)
+
+Label(root, text="Enter impedances seperated by a comma (,)").grid(row=1, columnspan=60)
+entry=Entry(root)
+entry.grid(row=2, columnspan=60, sticky=W)
+Button(root, text="Calculate", command=calc).grid(row=2,column=40, sticky=E)
+result=Entry(root)
+result.grid(row=2,column=50)
+root.mainloop() # keep program open until closed by user
